@@ -17,6 +17,14 @@ No settings window, no Dock icon, no network access, no dependencies. One Swift 
 
 ## Install
 
+### Homebrew
+
+```
+brew install andrecamm/tap/trickle
+```
+
+Homebrew puts `Trickle.app` in your Applications folder and clears the quarantine flag, so it opens without a Gatekeeper prompt. Run `brew upgrade` to update it.
+
 ### Download
 
 1. Grab `Trickle.zip` from the [latest release](https://github.com/AndreCamm/Trickle/releases/latest) and unzip it.
@@ -91,6 +99,24 @@ ioreg -rn AppleSmartBattery
 ## Contributing
 
 Issues and pull requests are welcome. The whole app lives in [`Sources/Trickle.swift`](Sources/Trickle.swift), and the aim is to keep it small and single purpose.
+
+## Releasing
+
+Push a tag such as `v1.4.0`. The Build workflow then:
+
+1. Builds the universal app with that version.
+2. Signs and notarises it, when the Developer ID secrets are set.
+3. Publishes `Trickle.zip` to a GitHub release.
+4. Updates the cask in [AndreCamm/homebrew-tap](https://github.com/AndreCamm/homebrew-tap), when `HOMEBREW_TAP_TOKEN` is set.
+
+| Secret | What it is |
+|---|---|
+| `DEVELOPER_ID_P12` | The Developer ID Application certificate and key, exported as `.p12` and base64 encoded |
+| `DEVELOPER_ID_P12_PASSWORD` | The password of that `.p12` |
+| `NOTARY_KEY` | The contents of an App Store Connect API key (`.p8`) |
+| `NOTARY_KEY_ID` | The ID of that key |
+| `NOTARY_ISSUER_ID` | The issuer ID shown with App Store Connect API keys |
+| `HOMEBREW_TAP_TOKEN` | A fine-grained token with write access to the contents of `homebrew-tap` only |
 
 ## License
 
