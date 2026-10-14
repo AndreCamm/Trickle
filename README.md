@@ -20,14 +20,14 @@ No settings window, no Dock icon, no network access, no dependencies. One Swift 
 ### Homebrew
 
 ```
-brew install andrecamm/tap/trickle
+brew install ndre-dev/tap/trickle
 ```
 
 Homebrew puts `Trickle.app` in your Applications folder and clears the quarantine flag, so it opens without a Gatekeeper prompt. Run `brew upgrade` to update it.
 
 ### Download
 
-1. Grab `Trickle.zip` from the [latest release](https://github.com/AndreCamm/Trickle/releases/latest) and unzip it.
+1. Grab `Trickle.zip` from the [latest release](https://github.com/ndre-dev/Trickle/releases/latest) and unzip it.
 2. Move `Trickle.app` to your Applications folder.
 3. Open it. The app isn't notarised by Apple, so the first time macOS will block it. Go to **System Settings, Privacy & Security**, scroll down and click **Open Anyway**. Alternatively, run:
 
@@ -40,7 +40,7 @@ Homebrew puts `Trickle.app` in your Applications folder and clears the quarantin
 You need Xcode or the Command Line Tools (`xcode-select --install`).
 
 ```
-git clone https://github.com/AndreCamm/Trickle.git
+git clone https://github.com/ndre-dev/Trickle.git
 cd Trickle
 ./build.sh
 cp -r build/Trickle.app /Applications/
@@ -107,7 +107,7 @@ Push a tag such as `v1.4.0`. The Build workflow then:
 1. Builds the universal app with that version.
 2. Signs and notarises it, when the Developer ID secrets are set.
 3. Publishes `Trickle.zip` to a GitHub release.
-4. Updates the cask in [AndreCamm/homebrew-tap](https://github.com/AndreCamm/homebrew-tap), when `HOMEBREW_TAP_TOKEN` is set.
+4. Updates the cask in [ndre-dev/homebrew-tap](https://github.com/ndre-dev/homebrew-tap), when `HOMEBREW_TAP_TOKEN` is set.
 
 | Secret | What it is |
 |---|---|
