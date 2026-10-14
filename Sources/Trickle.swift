@@ -1,4 +1,4 @@
-// ChargeWatts: shows live charging wattage in the macOS menu bar.
+// Trickle: shows live charging wattage in the macOS menu bar.
 // The item hides a few seconds after charging stops. Battery current is not
 // part of that decision: under load it goes negative while macOS still
 // reports that the battery is charging.
@@ -149,7 +149,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(.separator())
         loginItem.target = self
         menu.addItem(loginItem)
-        menu.addItem(NSMenuItem(title: "Quit ChargeWatts", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+        menu.addItem(NSMenuItem(title: "Quit Trickle", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         item.menu = menu
 
         updateLoginItem()
@@ -185,7 +185,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         } catch {
             let alert = NSAlert()
             alert.messageText = "Couldn't change Launch at Login"
-            alert.informativeText = "\(error.localizedDescription)\n\nYou can add ChargeWatts manually in System Settings, General, Login Items."
+            alert.informativeText = "\(error.localizedDescription)\n\nYou can add Trickle manually in System Settings, General, Login Items."
             alert.runModal()
         }
         updateLoginItem()

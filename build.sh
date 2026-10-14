@@ -1,5 +1,5 @@
 #!/bin/bash
-# Builds build/ChargeWatts.app as a universal (Apple Silicon + Intel) app.
+# Builds build/Trickle.app as a universal (Apple Silicon + Intel) app.
 # Needs Xcode or the Command Line Tools (run: xcode-select --install).
 #
 # Options (environment variables):
@@ -12,22 +12,22 @@ VERSION="${VERSION:-1.0.0}"
 ARCHS="${ARCHS:-arm64 x86_64}"
 MIN_MACOS="12.0"
 BUILD="build"
-APP="$BUILD/ChargeWatts.app"
+APP="$BUILD/Trickle.app"
 
 rm -rf "$BUILD"
 mkdir -p "$APP/Contents/MacOS"
 
 slices=()
 for arch in $ARCHS; do
-    out="$BUILD/ChargeWatts-$arch"
+    out="$BUILD/Trickle-$arch"
     xcrun --sdk macosx swiftc -O -swift-version 5 \
         -target "$arch-apple-macos$MIN_MACOS" \
-        Sources/ChargeWatts.swift \
+        Sources/Trickle.swift \
         -framework AppKit -framework IOKit -framework ServiceManagement \
         -o "$out"
     slices+=("$out")
 done
-lipo -create "${slices[@]}" -output "$APP/Contents/MacOS/ChargeWatts"
+lipo -create "${slices[@]}" -output "$APP/Contents/MacOS/Trickle"
 rm -f "${slices[@]}"
 
 cat > "$APP/Contents/Info.plist" <<PLIST
@@ -35,10 +35,10 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleName</key><string>ChargeWatts</string>
-    <key>CFBundleDisplayName</key><string>ChargeWatts</string>
+    <key>CFBundleName</key><string>Trickle</string>
+    <key>CFBundleDisplayName</key><string>Trickle</string>
     <key>CFBundleIdentifier</key><string>io.github.andrecamm.chargewatts</string>
-    <key>CFBundleExecutable</key><string>ChargeWatts</string>
+    <key>CFBundleExecutable</key><string>Trickle</string>
     <key>CFBundlePackageType</key><string>APPL</string>
     <key>CFBundleShortVersionString</key><string>$VERSION</string>
     <key>CFBundleVersion</key><string>$VERSION</string>

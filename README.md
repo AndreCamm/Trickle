@@ -1,8 +1,8 @@
-# ChargeWatts
+# Trickle
 
 A tiny macOS menu bar app that shows the wattage your MacBook is charging at. It also says when the charger is not keeping up, and it disappears when the Mac is not charging.
 
-![ChargeWatts in the menu bar](docs/screenshot.png)
+![Trickle in the menu bar](docs/screenshot.png)
 
 No settings window, no Dock icon, no network access, no dependencies. One Swift file, about 250 lines.
 
@@ -19,12 +19,12 @@ No settings window, no Dock icon, no network access, no dependencies. One Swift 
 
 ### Download
 
-1. Grab `ChargeWatts.zip` from the [latest release](https://github.com/AndreCamm/ChargeWatts/releases/latest) and unzip it.
-2. Move `ChargeWatts.app` to your Applications folder.
+1. Grab `Trickle.zip` from the [latest release](https://github.com/AndreCamm/Trickle/releases/latest) and unzip it.
+2. Move `Trickle.app` to your Applications folder.
 3. Open it. The app isn't notarised by Apple, so the first time macOS will block it. Go to **System Settings, Privacy & Security**, scroll down and click **Open Anyway**. Alternatively, run:
 
    ```
-   xattr -dr com.apple.quarantine /Applications/ChargeWatts.app
+   xattr -dr com.apple.quarantine /Applications/Trickle.app
    ```
 
 ### Build from source
@@ -32,11 +32,11 @@ No settings window, no Dock icon, no network access, no dependencies. One Swift 
 You need Xcode or the Command Line Tools (`xcode-select --install`).
 
 ```
-git clone https://github.com/AndreCamm/ChargeWatts.git
-cd ChargeWatts
+git clone https://github.com/AndreCamm/Trickle.git
+cd Trickle
 ./build.sh
-cp -r build/ChargeWatts.app /Applications/
-open /Applications/ChargeWatts.app
+cp -r build/Trickle.app /Applications/
+open /Applications/Trickle.app
 ```
 
 Apps you build yourself aren't quarantined, so there's no Gatekeeper prompt.
@@ -47,9 +47,9 @@ Apps you build yourself aren't quarantined, so there's no Gatekeeper prompt.
 
 **The menu says "Losing battery".** The charger is connected, and macOS still reports charging, but the Mac is using more than the adapter supplies. The battery covers the difference, so the percentage can fall while the bolt is showing. The second menu line is the split: what the Mac is using, what the charger is delivering, and what the battery is covering. Within 1W of zero the menu says **Holding** instead.
 
-**Start at login.** Click the item and tick **Launch at Login** (macOS 13 or later). On macOS 12, add ChargeWatts under System Settings, General, Login Items instead.
+**Start at login.** Click the item and tick **Launch at Login** (macOS 13 or later). On macOS 12, add Trickle under System Settings, General, Login Items instead.
 
-**Quit.** Click the item and choose Quit. If it's hidden because you're not charging, run `killall ChargeWatts` in Terminal.
+**Quit.** Click the item and choose Quit. If it's hidden because you're not charging, run `killall Trickle` in Terminal.
 
 ## Why doesn't it match my wall meter?
 
@@ -69,7 +69,7 @@ Charging also slows down on its own as the battery passes roughly 80%, because m
 
 ## How it works
 
-macOS publishes live battery data in the IORegistry under `AppleSmartBattery`. ChargeWatts reads it every 2 seconds:
+macOS publishes live battery data in the IORegistry under `AppleSmartBattery`. Trickle reads it every 2 seconds:
 
 - **Into battery** is `Voltage` multiplied by `Amperage`. Above 1W the menu says charging, below -1W it says the battery is covering the difference, and in between it says holding
 - **From charger** is `PowerTelemetryData.SystemPowerIn` (Apple Silicon only)
@@ -90,7 +90,7 @@ ioreg -rn AppleSmartBattery
 
 ## Contributing
 
-Issues and pull requests are welcome. The whole app lives in [`Sources/ChargeWatts.swift`](Sources/ChargeWatts.swift), and the aim is to keep it small and single purpose.
+Issues and pull requests are welcome. The whole app lives in [`Sources/Trickle.swift`](Sources/Trickle.swift), and the aim is to keep it small and single purpose.
 
 ## License
 
